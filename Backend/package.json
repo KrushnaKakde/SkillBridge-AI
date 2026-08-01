@@ -1,7 +1,7 @@
 {
-  "name": "yt-genai",
+  "name": "skillbridge-ai-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "SkillBridge AI - Backend server for AI-powered interview preparation platform",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
