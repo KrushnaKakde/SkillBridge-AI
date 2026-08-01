@@ -4,10 +4,12 @@ const cors = require("cors")
 
 const app = express()
 
-app.use(express.json())
+const clientOrigin = process.env.CLIENT_ORIGIN || "http://localhost:5173"
+
+app.use(express.json({ limit: "10mb" }))
 app.use(cookieParser())
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: clientOrigin,
     credentials: true
 }))
 
@@ -20,6 +22,13 @@ const interviewRouter = require("./routes/interview.routes")
 app.use("/api/auth", authRouter)
 app.use("/api/interview", interviewRouter)
 
+app.use((err, req, res, next) => {
+    console.error("Unhandled error:", err)
+    res.status(err.status || 500).json({
+        message: err.message || "Something went wrong on the server.",
+        error: process.env.NODE_ENV === "production" ? undefined : err.stack
+    })
+})
 
 
 module.exports = app
