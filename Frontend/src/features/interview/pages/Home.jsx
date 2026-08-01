@@ -1,16 +1,23 @@
 import React, { useState, useRef } from 'react'
 import "../style/home.scss"
 import { useInterview } from '../hooks/useInterview.js'
+import { useAuth } from '../../auth/hooks/useAuth.js'
 import { useNavigate } from 'react-router'
 
 const Home = () => {
 
-    const { loading, generateReport,reports } = useInterview()
+    const { loading, generateReport, reports } = useInterview()
+    const { handleLogout } = useAuth()
     const [ jobDescription, setJobDescription ] = useState("")
     const [ selfDescription, setSelfDescription ] = useState("")
     const resumeInputRef = useRef()
 
     const navigate = useNavigate()
+
+    const handleLogoutClick = async () => {
+        await handleLogout()
+        navigate('/login')
+    }
 
     const handleGenerateReport = async () => {
         const resumeFile = resumeInputRef.current.files[ 0 ]
@@ -39,6 +46,18 @@ const Home = () => {
 
     return (
         <div className='home-page'>
+
+            <nav className='home-navbar'>
+                <div className='home-navbar__brand'>
+                    <img src='/logo.png' alt='SkillBridge AI Logo' className='home-navbar__logo' />
+                    <span className='home-navbar__title'>SkillBridge AI</span>
+                </div>
+                <button 
+                    onClick={handleLogoutClick}
+                    className='primary-btn logout-btn'>
+                    Logout
+                </button>
+            </nav>
 
             {/* Page Header */}
             <header className='page-header'>
@@ -126,7 +145,7 @@ const Home = () => {
                     <span className='footer-info'>AI-Powered Strategy Generation &bull; Approx 30s</span>
                     <button
                         onClick={handleGenerateReport}
-                        className='generate-btn'>
+                        className='primary-btn generate-btn'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" /></svg>
                         Generate My Interview Strategy
                     </button>

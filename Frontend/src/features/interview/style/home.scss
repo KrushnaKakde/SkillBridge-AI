@@ -28,7 +28,7 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 3rem 1.5rem;
+    padding: 1.5rem 1.5rem 2rem;
     gap: 2rem;
 }
 
@@ -297,10 +297,11 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
     }
 }
 
-// ── Generate Button ───────────────────────────────────────────────────────────
-.generate-btn {
-    display: flex;
+// ── Shared Primary Button ───────────────────────────────────────────────────
+.primary-btn {
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
     background: linear-gradient(135deg, $accent 0%, color.adjust($accent, $lightness: -10%) 100%);
@@ -312,6 +313,8 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
     cursor: pointer;
     transition: opacity 0.2s, transform 0.1s;
     font-family: $font-stack;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
 
     &:hover {
         opacity: 0.9;
@@ -320,6 +323,46 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
     &:active {
         transform: scale(0.98);
     }
+}
+
+.generate-btn {
+    @extend .primary-btn;
+}
+
+.logout-btn {
+    min-width: 110px;
+}
+
+.home-navbar {
+    width: 100%;
+    padding-top: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    
+    
+}
+
+.home-navbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.home-navbar__logo {
+    width: 42px;
+    height: 42px;
+    border-radius: 0.8rem;
+    object-fit: contain;
+    background-color: #fff;
+    padding: 0.4rem;
+}
+
+.home-navbar__title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: $text-primary;
 }
 
 .recent-reports{
