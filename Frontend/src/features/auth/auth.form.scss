@@ -29,10 +29,38 @@ main {
         width: 100%;
 
         img {
-            width: 200px;
-            height: 200px;
-            object-fit: contain;
-            background: transparent;
+            width: 200px !important;
+            height: 200px !important;
+            min-width: 200px !important;
+            min-height: 200px !important;
+            max-width: 200px !important;
+            max-height: 200px !important;
+            object-fit: contain !important;
+            background-color: transparent !important;
+            background: transparent !important;
+            background-image: none !important;
+            border: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            filter: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            backdrop-filter: none !important;
+            transition: none !important;
+            animation: none !important;
+            transform: none !important;
+        }
+
+        img:hover,
+        img:focus,
+        img:active {
+            transform: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background-color: transparent !important;
+            background: transparent !important;
+            padding: 0 !important;
+            animation: none !important;
         }
     }
 
