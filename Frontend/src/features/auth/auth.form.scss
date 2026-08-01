@@ -27,21 +27,12 @@ main {
         justify-content: center;
         align-items: center;
         width: 100%;
-        margin-bottom: 0.25rem;
 
         img {
-            width: 128px;
-            height: 128px;
+            width: 200px;
+            height: 200px;
             object-fit: contain;
-            border-radius: 1.25rem;
-            padding: 0.75rem;
-            background-color: #fff;
-            box-shadow: 0 8px 24px rgba($accent, 0.15), 0 2px 6px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s ease;
-
-            &:hover {
-                transform: translateY(-2px) scale(1.02);
-            }
+            background: transparent;
         }
     }
 
