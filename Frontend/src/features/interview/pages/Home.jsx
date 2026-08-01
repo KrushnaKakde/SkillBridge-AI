@@ -21,7 +21,18 @@ const Home = () => {
     if (loading) {
         return (
             <main className='loading-screen'>
-                <h1>Loading your interview plan...</h1>
+                <div className="logo">
+                    <img src="/logo.png" alt="SkillBridge AI Logo" className="pulse" />
+                </div>
+                <h1>Generating your personalized interview plan</h1>
+                <div className="loading-dots" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <p className="loading-sub">
+                    Our AI is analyzing your resume, matching your profile, and the target job description. This usually takes about 30 seconds...
+                </p>
             </main>
         )
     }
