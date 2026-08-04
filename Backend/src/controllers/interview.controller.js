@@ -3,7 +3,19 @@ const { generateInterviewReport, generateResumePdf } = require("../services/ai.s
 const interviewReportModel = require("../models/interviewReport.model")
 
 
+/**
+ * @description Sanitize a string to be used as a safe filename by removing or replacing unsafe characters.
+ */
+function sanitizeFileName(value) {
+    if (!value) return "resume"
 
+    return value
+        .normalize("NFKD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim()
+        .replace(/[^a-zA-Z0-9._-]+/g, "_")
+        .replace(/^_+|_+$/g, "") || "resume"
+}
 
 /**
  * @description Controller to generate interview report based on user self description, resume and job description.
@@ -121,13 +133,14 @@ async function generateResumePdfController(req, res) {
             })
         }
 
-        const { resume, jobDescription, selfDescription } = interviewReport
+        const { resume, jobDescription, selfDescription, title } = interviewReport
 
         const pdfBuffer = await generateResumePdf({ resume, jobDescription, selfDescription })
+        const safeTitle = sanitizeFileName(title)
 
         res.set({
             "Content-Type": "application/pdf",
-            "Content-Disposition": `attachment; filename=SkillBridge_Resume_${interviewReportId}.pdf`
+            "Content-Disposition": `attachment; filename=${safeTitle}.pdf`
         })
 
         res.send(pdfBuffer)

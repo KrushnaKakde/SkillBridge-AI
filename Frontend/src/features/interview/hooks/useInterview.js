@@ -64,10 +64,28 @@ export const useInterview = () => {
         let response = null
         try {
             response = await generateResumePdf({ interviewReportId })
-            const url = window.URL.createObjectURL(new Blob([ response ], { type: "application/pdf" }))
+
+            const contentDisposition = response.headers?.["content-disposition"] || response.headers?.["Content-Disposition"]
+            const fallbackName = (report?.title || "resume")
+                .normalize("NFKD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .trim()
+                .replace(/[^a-zA-Z0-9._-]+/g, "_")
+                .replace(/^_+|_+$/g, "") || "resume"
+
+            let downloadName = `${fallbackName}.pdf`
+
+            if (contentDisposition) {
+                const match = contentDisposition.match(/filename\*?=(?:UTF-8''|")?([^";]+)(?:")?/i)
+                if (match?.[1]) {
+                    downloadName = decodeURIComponent(match[1]).replace(/['"]/g, "")
+                }
+            }
+
+            const url = window.URL.createObjectURL(new Blob([ response.data ], { type: "application/pdf" }))
             const link = document.createElement("a")
             link.href = url
-            link.setAttribute("download", `resume_${interviewReportId}.pdf`)
+            link.setAttribute("download", downloadName)
             document.body.appendChild(link)
             link.click()
         }
